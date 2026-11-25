@@ -1,50 +1,17 @@
-# CORNER STONER LEADERS
+# CORNER STONER LEADERS Android app
 
-A responsive praise-team leadership portal built with HTML, CSS, JavaScript and Supabase Auth/Postgres.
+This Android project wraps the existing private website in an Android WebView. It uses the existing website and Supabase backend, so the website remains the source of truth for sign-in, leader approval, finance and records.
 
-## Included
-- Sign-in, leader registration and password reset
-- Pending approval screen for new accounts
-- Administrator approval/rejection workflow
-- Overview dashboard
-- Song library
-- Attendance records
-- Daily activities
-- Supabase Row Level Security policies
+## Build without a computer (GitHub Actions)
+1. Create a GitHub repository named `corner-stoner-leaders-android`.
+2. Extract this ZIP on your Android phone.
+3. Upload the CONTENTS of the `csl-android` folder to the repository root, including the hidden `.github/workflows/android.yml` file. Keep the folders and paths intact.
+4. In GitHub, open the repository's Actions tab. Enable Actions if asked.
+5. Open `Build Android APK` and tap `Run workflow` (or wait for the first push build).
+6. When the run succeeds, open it, scroll to Artifacts, and download `CORNER-STONER-LEADERS-APK`. Extract the downloaded artifact ZIP to get `app-debug.apk`.
+7. Tap `app-debug.apk` to install. Android may ask you to allow installs from your browser or file manager.
 
-## Important: apply the database migration first
-1. Open the Supabase project `gyezqkekuvkhdqndrzcu`.
-2. Open SQL Editor and create a new query.
-3. Paste the full contents of `supabase-approval-setup.sql`.
-4. Run it and verify the final query shows the administrator profile with role `admin` and approval status `approved`.
-
-This migration assumes the four tables and helper function `public.is_admin()` from the earlier setup already exist.
-
-## Supabase Auth settings
-- In Authentication > URL Configuration, set the Site URL to the deployed website URL.
-- Add the deployed website URL to Redirect URLs.
-- Email provider should be enabled.
-- If email confirmation is enabled, leaders must confirm their email before signing in.
-- Keep public signups enabled only if you want leaders to request accounts. The approval workflow prevents pending accounts from reading team data.
-
-## Run locally
-Because this is a static site, serve the folder with any local static server. Do not open `index.html` as a `file://` URL if the browser blocks module imports.
-
-## Publish
-Upload the contents of this folder to a static host such as Netlify, Cloudflare Pages or GitHub Pages. Publish the folder containing `index.html`, `app.js`, `styles.css`, and `config.js`.
-After deployment, set the website URL in Supabase Authentication > URL Configuration.
-
-## Security notes
-- `config.js` contains only the Supabase project URL and publishable key. Publishable keys are intended for browser use.
-- Never add an `sb_secret_` key or `service_role` key to frontend files.
-- The SQL migration adds `approval_status`, protects that field from self-editing, and restricts data access to approved users or admins.
-- Review RLS policies before inviting real members. Do not share administrator credentials.
-
-
-## Finance daily records update
-
-1. In Supabase, open SQL Editor and run the complete contents of `finance-setup.sql`. This adds the finance ledger and its Row Level Security policies.
-2. In the website, sign in as the administrator and open **Leader approvals**. Under **Finance permission**, tap **Make treasurer** beside the approved leader who will manage the accounts.
-3. Upload the updated website ZIP to Netlify using the site's deploy page. Do not upload the ZIP into Supabase.
-
-All approved leaders can view finance records. Only the administrator and the appointed treasurer can add, edit, or delete transactions. Amounts are recorded in Zambian Kwacha (ZMW). Never place a Supabase secret/service-role key in the website files.
+## Notes
+- Confirm `WEBSITE_URL` in `app/src/main/java/com/cornerstonerleaders/app/MainActivity.java` is the current live website URL before building.
+- This is a WebView app shell; the website must remain deployed and reachable.
+- Never put Supabase service-role or secret keys in this project.
