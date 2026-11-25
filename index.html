@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101712">
+  <title>CORNER STONER LEADERS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+
+  <main id="authView" class="auth-shell">
+    <section class="brand-panel">
+      <div class="brand-mark">CS<span>✦</span></div>
+      <div class="eyebrow">PRAISE TEAM • LEADERSHIP PORTAL</div>
+      <h1>Lead with purpose.<br><em>Worship with one heart.</em></h1>
+      <p>A shared space for team coordination, attendance, activities and songs.</p>
+      <div class="brand-footer"><span class="live-dot"></span> ONE TEAM. ONE SOUND. ONE PURPOSE.</div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="mobile-brand"><div class="brand-mark small">CS<span>✦</span></div><span>CORNER STONER LEADERS</span></div>
+        <div class="eyebrow gold">WELCOME TO THE PORTAL</div>
+        <h2 id="authTitle">Sign in to your account</h2>
+        <p class="muted" id="authSubtitle">Enter your details to access your leadership workspace.</p>
+        <form id="authForm">
+          <div id="nameField" class="field hidden"><label for="displayName">Full name</label><input id="displayName" autocomplete="name" placeholder="Your full name"></div>
+          <div class="field"><label for="email">Email address</label><input id="email" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters"></div>
+          <button class="btn primary full" id="authSubmit" type="submit">Sign in <span>→</span></button>
+        </form>
+        <div class="auth-links"><button id="toggleAuth" class="text-btn">Create a leader account</button><button id="forgotBtn" class="text-btn">Forgot password?</button></div>
+        <div class="auth-note"><span class="lock">▣</span> Secure access. New accounts require administrator approval.</div>
+      </div>
+      <div class="auth-bottom">© <span id="year"></span> CORNER STONER LEADERS</div>
+    </section>
+  </main>
+
+  <main id="pendingView" class="center-state hidden">
+    <div class="state-icon">◷</div><div class="eyebrow gold">ACCOUNT REVIEW</div>
+    <h1 id="pendingTitle">Your account is awaiting approval</h1>
+    <p id="pendingText">Your registration has been received. An administrator must approve your account before you can access team information.</p>
+    <button class="btn secondary" id="pendingSignOut">Sign out</button>
+  </main>
+
+  <main id="appView" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand"><div class="brand-mark small">CS<span>✦</span></div><div><b>CORNER STONER</b><small>LEADERS PORTAL</small></div></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-page="overview"><span>◫</span> Overview</button>
+        <button class="nav-item" data-page="attendance"><span>☷</span> Attendance</button>
+        <button class="nav-item" data-page="activities"><span>◷</span> Daily activities</button>
+        <button class="nav-item" data-page="songs"><span>♫</span> Song library</button>
+        <button class="nav-item" data-page="finance"><span>₭</span> Finance records</button>
+        <button class="nav-item admin-only hidden" data-page="approvals"><span>✓</span> Leader approvals <i id="pendingCount" class="count">0</i></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✦</div><b>Serve together.</b><p>Stay connected and keep the team moving in one direction.</p></div>
+        <button class="profile-mini" id="profileMini"><span class="avatar" id="avatar">M</span><span><b id="sideName">Leader</b><small id="sideRole">Leader</small></span><span class="dots">•••</span></button>
+        <button class="nav-item signout" id="signOut"><span>↪</span> Sign out</button>
+      </div>
+    </aside>
+    <section class="main-area">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <div><div class="top-kicker">CORNER STONER LEADERS</div><div class="top-title" id="pageTitle">Overview</div></div>
+        <div class="top-right"><span class="today" id="todayLabel"></span><span class="top-avatar" id="topAvatar">M</span></div>
+      </header>
+      <div class="content" id="pageContent"></div>
+      <footer>Built for service, unity and excellence <span>✦</span></footer>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
